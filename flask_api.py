@@ -22,11 +22,12 @@ class HelloWorld(Resource):
         return {"hello": "world"}
 
     def post(self):
+        print("RARARARAR")
         logger.info("helle post called")
         logger.info(request.form)
         # return {"hello": "post world"}
         # import pdb; pdb.set_trace()
-        return request.form
+        return type(request.form)
 
 # Test query string
 class HelloQueryString(Resource):
