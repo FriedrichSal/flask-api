@@ -23,8 +23,9 @@ class HelloWorld(Resource):
 
     def post(self):
         logger.info("helle post called")
-
-        return {"hello": "post world"}
+        logger.info(request.json)
+        # return {"hello": "post world"}
+        return request.json
 
 
 # Test query string
