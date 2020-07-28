@@ -23,10 +23,10 @@ class HelloWorld(Resource):
 
     def post(self):
         logger.info("helle post called")
-        logger.info(request.json)
+        logger.info(request.form)
         # return {"hello": "post world"}
-        return request.json
-
+        # import pdb; pdb.set_trace()
+        return request.form
 
 # Test query string
 class HelloQueryString(Resource):
