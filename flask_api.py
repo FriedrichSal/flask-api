@@ -18,7 +18,13 @@ api = Api(app)
 # Test Resource
 class HelloWorld(Resource):
     def get(self):
+        logger.info("helle get called")
         return {"hello": "world"}
+
+    def post(self):
+        logger.info("helle post called")
+
+        return {"hello": "post world"}
 
 
 # Test query string
