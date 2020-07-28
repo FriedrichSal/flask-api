@@ -8,7 +8,6 @@ import json
 from flask import Flask, request, make_response, render_template
 from flask_restful import Resource, Api
 import pandas as pd
-import dindex.dindex_utils as du
 
 logger = logging.getLogger(__name__)
 
