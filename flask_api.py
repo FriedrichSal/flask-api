@@ -29,18 +29,24 @@ class HelloWorld(Resource):
         # command, text, response_url, trigger_id
         d = request.form
 
-        # Retrieve command and text
-        command = d["command"]
-        text = d["text"]
-        print(command)
-        print(text)
-        assert(command == "/roll")
-
-        # Text should be of the the form xdy+z
-        # for rolling a y-sided dice x times and adding z
-        # 2d6+3 meansin rolling a six sided dice twice and adding 3 to the sum
-        # Might do this with regular expression, but for now just split
         try:
+            # Retrieve command and text
+            command = d["command"]
+            text = d["text"]
+            print(command)
+            print(text)
+            assert(command == "/roll")
+
+            # Text should be of the the form xdy+z
+            # for rolling a y-sided dice x times and adding z
+            # 2d6+3 meansin rolling a six sided dice twice and adding 3 to the sum
+            # Might do this with regular expression, but for now just split
+
+            # Curl requests seem to turn + into " "
+            if "+" not in text:
+                text = text.replace(" ", "+")
+
+            # Get dice setup
             num_dice = int(text.split("d")[0])
             num_sides = int(text.split("d")[1].split("+")[0])
             split_plus = text.split("d")[1].split("+")
@@ -48,11 +54,15 @@ class HelloWorld(Resource):
                 mod = int(split_plus[1])
             else:
                 mod = 0
+
+            # Roll the dice and return result
             dice_result = [ random.randint(1,num_sides) for _ in range(num_dice)]
             out = f"Rolling {text}: ({' + '.join(list(map(str, dice_result)))}) + {mod} = {sum(dice_result) + mod}"
             return out
         except Exception as e:
             print(e)
+            print(d)
+            print(request.data)
             return "Something went wrong, try something like: /roll 1d6+2"
 
 
