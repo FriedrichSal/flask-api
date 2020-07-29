@@ -40,17 +40,16 @@ class HelloWorld(Resource):
         # for rolling a y-sided dice x times and adding z
         # 2d6+3 meansin rolling a six sided dice twice and adding 3 to the sum
         # Might do this with regular expression, but for now just split
-        # Note that slack converts the "+" to a " "
         try:
             num_dice = int(text.split("d")[0])
-            num_sides = int(text.split("d")[1].split(" ")[0])
-            split_plus = text.split("d")[1].split(" ")
+            num_sides = int(text.split("d")[1].split("+")[0])
+            split_plus = text.split("d")[1].split("+")
             if len(split_plus) > 1:
                 mod = int(split_plus[1])
             else:
                 mod = 0
             dice_result = [ random.randint(1,num_sides) for _ in range(num_dice)]
-            out = f"Rolling {text.replace(' ', '+')}: ({' + '.join(list(map(str, dice_result)))}) + {mod} = {sum(dice_result) + mod}"
+            out = f"Rolling {text}: ({' + '.join(list(map(str, dice_result)))}) + {mod} = {sum(dice_result) + mod}"
             return out
         except Exception as e:
             print(e)
