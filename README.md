@@ -26,3 +26,11 @@ You can now roll the dice with curl
 For deployment on heroku there is a Procfile in the repository. Refer to Heroku how to deploy.
 
 On slack you need to need to create an app on https://api.slack.com/apps. There add a 'slash command' with name '/roll' and set its request URL to 'https://<yourappname>.herokuapp.com/'. Deploy the slack app to your workspace and that should hopefully be enough.
+
+
+### p.s.
+I had this api deployed on Heroku, so you might try
+
+```
+curl -d "command=/roll&text=2d6+4" https://salapi.herokuapp.com/
+```
